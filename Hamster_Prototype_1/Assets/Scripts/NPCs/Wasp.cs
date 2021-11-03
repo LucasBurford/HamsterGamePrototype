@@ -16,6 +16,14 @@ public class Wasp : MonoBehaviour
     }
 
     [SerializeField]
+    private float damageInflict;
+    public float DamageInflict
+    {
+        get { return damageInflict; }
+        set { damageInflict = value; }
+    }
+
+    [SerializeField]
     // Wasp behaviour states
     private enum States
     {
@@ -31,6 +39,7 @@ public class Wasp : MonoBehaviour
     {
         // Initialise values
         health = 100;
+        damageInflict = 15;
         // Set starting state to idle
         state = States.idle;
     }
@@ -49,8 +58,16 @@ public class Wasp : MonoBehaviour
     /// </summary>
     private void Hover()
     {
-        float y = Mathf.PingPong(Time.time, 1);
+        //transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, 1), transform.position.z);
+    }
 
-        transform.position = new Vector3(transform.position.x, y, transform.position.z);
+    private void OnCollisionEnter(Collision collision)
+    {
+        // If Wasp collides with player
+        if (collision.gameObject.name == "PlayerHamster")
+        {
+            // Call TakeDamage and pass through damageInflict to damage the player
+            collision.gameObject.GetComponent<PlayerHamster>().TakeDamage(damageInflict);
+        }
     }
 }

@@ -26,10 +26,20 @@ public class PlayerHamster : MonoBehaviour
     // Player Health
     [SerializeField]
     private float health;
+    public float Health
+    {
+        get { return health; }
+        set { health = value; }
+    }
 
     // Player Damage
     [SerializeField]
     private float damageInflict;
+    public float DamageInflict
+    {
+        get { return damageInflict; }
+        set { damageInflict = value; }
+    }
 
     // Player Stamina
     [SerializeField]
@@ -37,10 +47,20 @@ public class PlayerHamster : MonoBehaviour
     public float Stamina
     {
         get { return stamina; }
+        set { stamina = value; }
+
     }
     #endregion
 
+    #region Gameplay
+    [Header("Gameplay")]
+
+    [SerializeField]
+    private bool canBeDamaged;
     #endregion
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +68,8 @@ public class PlayerHamster : MonoBehaviour
         health = 100;
         damageInflict = 25;
         stamina = 100;
+
+        canBeDamaged = true;
     }
 
     // Update is called once per frame
@@ -65,6 +87,37 @@ public class PlayerHamster : MonoBehaviour
         playerStamina.text = stamina.ToString();
     }
 
+    #region Health Methods
+    /// <summary>
+    /// Reduce health by passed in amount
+    /// </summary>
+    /// <param name="amount">Reduce health by this value</param>
+    public void TakeDamage(float amount)
+    {
+        if (canBeDamaged)
+        {
+            health -= amount;
+
+            // Play sound
+
+            // Knockback
+
+            canBeDamaged = false;
+            StartCoroutine(TakeDamageReset(1.5f));
+        }
+    }
+
+    /// <summary>
+    /// Increase health by passed in amount
+    /// </summary>
+    /// <param name="amount">Increase health by this value</param>
+    public void IncreaseHealth(float amount)
+    {
+        health += amount;
+    }
+    #endregion
+
+    #region Stamina Methods
     /// <summary>
     /// Reduce stamina by passed in amount
     /// </summary>
@@ -87,4 +140,13 @@ public class PlayerHamster : MonoBehaviour
             stamina = 100;
         }
     }
+    #endregion
+
+    #region Coroutines
+    IEnumerator TakeDamageReset(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        canBeDamaged = true;
+    }
+    #endregion
 }
