@@ -58,7 +58,7 @@ public class Wasp : MonoBehaviour
     /// </summary>
     private void Hover()
     {
-        //transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, 1), transform.position.z);
+        transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, 1), transform.position.z);
     }
 
     private void OnCollisionEnter(Collision collision)
