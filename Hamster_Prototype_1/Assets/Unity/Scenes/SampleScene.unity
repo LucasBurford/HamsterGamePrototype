@@ -668,12 +668,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426c3d287cf045448a0f22aca74eeae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1171470672}
   playerCharacter: {fileID: 1171470670}
   controller: {fileID: 1171470674}
   cam: {fileID: 963194228}
   speed: 75
   turnSmoothTime: 0.1
   hasJumped: 0
+  canSprint: 0
 --- !u!143 &1171470674
 CharacterController:
   m_ObjectHideFlags: 0

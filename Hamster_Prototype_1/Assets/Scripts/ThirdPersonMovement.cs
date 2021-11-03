@@ -5,12 +5,13 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
     #region Members
+    public PlayerHamster player;
     public GameObject playerCharacter;
     public CharacterController controller;
     public Transform cam;
 
     [SerializeField]
-    private float speed = 6f;
+    private float speed = 75f;
 
     [SerializeField]
     private float turnSmoothTime = 0.1f;
@@ -19,6 +20,10 @@ public class ThirdPersonMovement : MonoBehaviour
 
     [SerializeField]
     private bool hasJumped;
+
+    [SerializeField]
+    private bool canSprint;
+    private bool isSprinting;
     #endregion
 
     // Update is called once per frame
@@ -41,9 +46,42 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         #endregion
 
+        #region Sprinting
+        // If player is sprinting
+        if (isSprinting)
+        {
+            // Increase movement speed
+            speed = 200;
+            // Reduce stamina
+            player.ReduceStamina(1f);
+
+            if (player.Stamina <= 0)
+            {
+                isSprinting = false;
+                canSprint = false;
+            }
+        }
+        else
+        {
+            // Reset movement speed
+            speed = 75;
+            // Increase stamina back up
+            player.IncreaseStamina(1f);
+
+            if (player.Stamina >= 100)
+            {
+                canSprint = true;
+            }
+        }
+
+        #endregion
+
         CheckInputs();
     }
 
+    /// <summary>
+    /// Check for and handle inputs
+    /// </summary>
     private void CheckInputs()
     {
         // When space bar is pressed
@@ -57,8 +95,21 @@ public class ThirdPersonMovement : MonoBehaviour
             // Set hasJumped to true to preven floating up on hold
             hasJumped = true;
         }
+
+        // Check if player is sprinting
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canSprint)
+        {
+            isSprinting = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isSprinting = false;
+        }
     }
 
+    /// <summary>
+    /// Jump
+    /// </summary>
     private void Jump()
     {
         // Move player up
