@@ -20,6 +20,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public float regularSpeed;
     // the player's sprinting speed
     public float sprintSpeed;
+    // Jump force
+    public float jumpForce;
 
     public float rotationSpeed;
 
@@ -76,8 +78,8 @@ public class ThirdPersonMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    public void AttackLunge(GameObject target)
     {
-        
+        rb.AddForce((target.transform.position - transform.position).normalized * jumpForce, ForceMode.VelocityChange);
     }
 }

@@ -8,8 +8,8 @@ public class Wasp : MonoBehaviour
 
     #region References
     [Header("References")]
-
     public Rigidbody rb;
+    public Transform visionOrigin;
 
     #endregion
 
@@ -37,6 +37,8 @@ public class Wasp : MonoBehaviour
 
     // Wait to reset attack time
     public float resetAttackTime;
+
+    public float visionLength;
     #endregion
 
     #region Bools
@@ -77,6 +79,37 @@ public class Wasp : MonoBehaviour
         transform.position = new Vector3(transform.position.x, y, transform.position.z);
     }
 
+    public void TakeDamage(object damage)
+    {
+        health -= (float)damage;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void CastVisionSphere()
+    {
+        // Cast sphere to act as vision and collect 'seen' objects
+        Collider[] seenObjects = Physics.OverlapSphere(visionOrigin.position, visionLength);
+
+        foreach (Collider col in seenObjects)
+        {
+            // If seen object is the player
+            if (col.gameObject.CompareTag("Player"))
+            {
+                // Move towards the player using navmesh
+
+            }
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnCollisionStay(Collision collision)
     {
         // If Wasp collides with player and can attack
@@ -100,4 +133,9 @@ public class Wasp : MonoBehaviour
         canAttack = true;
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(visionOrigin.position, visionLength);
+    }
 }
