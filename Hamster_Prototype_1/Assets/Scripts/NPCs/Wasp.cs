@@ -4,36 +4,42 @@ using UnityEngine;
 
 public class Wasp : MonoBehaviour
 {
-    #region Members
-    [Header("Wasp Values")]
+    #region Fields
 
-    [SerializeField]
-    // Wasp health
-    private float health;
-    public float Health
-    {
-        get { return health; }
-    }
+    #region References
+    [Header("References")]
 
-    [SerializeField]
-    private float damageInflict;
-    public float DamageInflict
-    {
-        get { return damageInflict; }
-        set { damageInflict = value; }
-    }
+    public Rigidbody rb;
+    public GameManager gameManager;
 
-    [SerializeField]
-    // Wasp behaviour states
-    private enum States
+    #endregion
+
+    #region Gameplay and spec
+    [Header("Gameplay and spec")]
+
+    #region Behaviour states
+    [Header("Behaviour states")]
+    public States state;
+    public enum States
     {
         idle,
         attacking
     }
-    [SerializeField]
-    private States state;
+    #endregion
+
+    #region Floats and ints
+    [Header("Floats and ints")]
+
+    // Wasp health
+    public float health;
+    // Damage dealt to the player
+    public float damageInflict;
+    #endregion
 
     #endregion
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,9 +53,14 @@ public class Wasp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (state == States.idle)
+        // Enact behaviour based on current state
+        switch (state)
         {
-            Hover();
+            case States.idle:
+                {
+                    Hover();
+                }
+                break;
         }
     }
 
@@ -58,7 +69,8 @@ public class Wasp : MonoBehaviour
     /// </summary>
     private void Hover()
     {
-        transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, 1), transform.position.z);
+        Vector3 move = new Vector3(transform.position.x, transform.position.y + Mathf.PingPong(Time.time, 1), transform.position.z);
+        rb.MovePosition(move);
     }
 
     private void OnCollisionEnter(Collision collision)
