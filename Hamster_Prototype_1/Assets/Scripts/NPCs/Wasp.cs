@@ -10,7 +10,6 @@ public class Wasp : MonoBehaviour
     [Header("References")]
 
     public Rigidbody rb;
-    public GameManager gameManager;
 
     #endregion
 
@@ -32,8 +31,17 @@ public class Wasp : MonoBehaviour
 
     // Wasp health
     public float health;
+
     // Damage dealt to the player
     public float damageInflict;
+
+    // Wait to reset attack time
+    public float resetAttackTime;
+    #endregion
+
+    #region Bools
+    [Header("Bools")]
+    public bool canAttack;
     #endregion
 
     #endregion
@@ -43,11 +51,7 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Initialise values
-        health = 100;
-        damageInflict = 15;
-        // Set starting state to idle
-        state = States.idle;
+
     }
 
     // Update is called once per frame
@@ -69,17 +73,31 @@ public class Wasp : MonoBehaviour
     /// </summary>
     private void Hover()
     {
-        Vector3 move = new Vector3(transform.position.x, transform.position.y + Mathf.PingPong(Time.time, 1), transform.position.z);
-        rb.MovePosition(move);
+        float y = Mathf.PingPong(Time.time, 1);
+        transform.position = new Vector3(transform.position.x, y, transform.position.z);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        // If Wasp collides with player
-        if (collision.gameObject.name == "PlayerHamster")
+        // If Wasp collides with player and can attack
+        if (collision.gameObject.name == "PlayerHamster" && canAttack)
         {
             // Call TakeDamage and pass through damageInflict to damage the player
             collision.gameObject.GetComponent<PlayerHamster>().TakeDamage(damageInflict);
+
+            // Reset attack
+            canAttack = false;
+
+            StartCoroutine(WaitToResetAttack());
         }
     }
+
+    #region Coroutines
+    IEnumerator WaitToResetAttack()
+    {
+        yield return new WaitForSeconds(resetAttackTime);
+
+        canAttack = true;
+    }
+    #endregion
 }
