@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Wasp : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Wasp : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
     public Transform visionOrigin;
-
+    public NavMeshAgent agent;
     #endregion
 
     #region Gameplay and spec
@@ -53,7 +54,7 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -68,6 +69,8 @@ public class Wasp : MonoBehaviour
                 }
                 break;
         }
+
+        CastVisionSphere();
     }
 
     /// <summary>
@@ -76,7 +79,7 @@ public class Wasp : MonoBehaviour
     private void Hover()
     {
         float y = Mathf.PingPong(Time.time, 1);
-        transform.position = new Vector3(transform.position.x, y, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, y, transform.position.z);
     }
 
     public void TakeDamage(object damage)
@@ -100,7 +103,7 @@ public class Wasp : MonoBehaviour
             if (col.gameObject.CompareTag("Player"))
             {
                 // Move towards the player using navmesh
-
+                agent.SetDestination(col.gameObject.transform.position);
             }
         }
     }

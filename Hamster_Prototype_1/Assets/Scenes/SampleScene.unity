@@ -141,6 +141,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.12413193, y: 0.09169097, z: 0.14129278}
   m_Center: {x: 0, y: 0.046563327, z: -0.00723638}
+--- !u!1 &307888882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5251982772408014507, guid: 56bc4833db949694baf168562e9bc883, type: 3}
+  m_PrefabInstance: {fileID: 2023779000}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &307888883
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307888882}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!4 &412446809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4875456855426042897, guid: 56bc4833db949694baf168562e9bc883, type: 3}
@@ -1228,6 +1255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1983684151}
   - component: {fileID: 1983684152}
+  - component: {fileID: 1983684153}
   m_Layer: 0
   m_Name: FlyingNavMesh
   m_TagString: Untagged
@@ -1278,6 +1306,18 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 4f8320ef9d456f54eab8b65795ab26b7, type: 2}
+--- !u!114 &1983684153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983684150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15f69aaa03a71145a0fde3e960e9a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2023779000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1291,7 +1331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4875456855426042897, guid: 56bc4833db949694baf168562e9bc883, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1461544
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4875456855426042897, guid: 56bc4833db949694baf168562e9bc883, type: 3}
       propertyPath: m_LocalPosition.z
