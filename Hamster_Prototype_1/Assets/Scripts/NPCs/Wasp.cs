@@ -65,7 +65,8 @@ public class Wasp : MonoBehaviour
         {
             case States.idle:
                 {
-                    Hover();
+                    // Remove until I can get it to work with NavMesh
+                    //Hover();
                 }
                 break;
         }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Terrain
   - Enemy
+  - InteractObject
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Terrain
   - Player
   - Enemy
-  - 
+  - InteractObjects
   - 
   - 
   - 
