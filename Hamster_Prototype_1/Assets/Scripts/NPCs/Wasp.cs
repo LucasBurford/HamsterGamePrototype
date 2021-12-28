@@ -11,7 +11,7 @@ public class Wasp : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
     public Transform visionOrigin;
-    public NavMeshAgent agent;
+    //public NavMeshAgent agent;
     #endregion
 
     #region Gameplay and spec
@@ -103,8 +103,10 @@ public class Wasp : MonoBehaviour
             // If seen object is the player
             if (col.gameObject.CompareTag("Player"))
             {
+                Vector3.Lerp(transform.position, col.gameObject.transform.position, 3);
+
                 // Move towards the player using navmesh
-                agent.SetDestination(col.gameObject.transform.position);
+                //agent.SetDestination(col.gameObject.transform.position);
             }
         }
     }

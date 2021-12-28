@@ -83,6 +83,11 @@ public class PlayerInteractions : MonoBehaviour
             }
             print(seenObject.collider.gameObject.name);
         }
+        else
+        {
+            interactText.gameObject.SetActive(false);
+            return;
+        }
     }
 
     private void OnDrawGizmos()
