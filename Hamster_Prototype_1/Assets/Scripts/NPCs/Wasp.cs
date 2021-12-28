@@ -54,7 +54,7 @@ public class Wasp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
+        //agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -80,7 +80,7 @@ public class Wasp : MonoBehaviour
     private void Hover()
     {
         float y = Mathf.PingPong(Time.time, 1);
-        //transform.position = new Vector3(transform.position.x, y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, y, transform.position.z);
     }
 
     public void TakeDamage(object damage)
