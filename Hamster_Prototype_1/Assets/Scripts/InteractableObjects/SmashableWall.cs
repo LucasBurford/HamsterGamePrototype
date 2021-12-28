@@ -7,6 +7,7 @@ public class SmashableWall : MonoBehaviour
     public void GetSmashed(Hedgehog hedgehog)
     {
         // Play smashing sound
+        FindObjectOfType<AudioManager>().Play("WoodSmashing");
 
         // Send message back to Hedgehog saying to stop moving 
         hedgehog.gameObject.SendMessage("SmashSuccessful");
